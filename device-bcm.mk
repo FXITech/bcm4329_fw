@@ -16,13 +16,16 @@
 
 ########################
 
-ifeq ($(BOARD_WLAN_DEVICE_REV),bcm4330_b1)
-BCM_FW_SRC_FILES := fw_bcm4330_b1.bin
+ifeq ($(strip $(WIFI_BAND)),802_11_ABG)
+BCM_FW_SRC_FILE_STA := fw_bcm4329_abg.bin
 else
-BCM_FW_SRC_FILES := fw_bcm4330_b2.bin
+BCM_FW_SRC_FILE_STA := fw_bcm4329.bin
 endif
+BCM_FW_SRC_FILE_AP  := fw_bcm4329_apsta.bin
+BCM_FW_SRC_FILE_P2P := fw_bcm4329_p2p.bin
 
 PRODUCT_COPY_FILES += \
-    hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/$(BCM_FW_SRC_FILES):system/vendor/firmware/fw_bcmdhd.bin
-
+    hardware/fxi/cottoncandy/wlan/$(BCM_FW_SRC_FILE_STA):system/vendor/firmware/fw_bcmdhd.bin \
+    hardware/fxi/cottoncandy/wlan/$(BCM_FW_SRC_FILE_AP):system/vendor/firmware/fw_bcmdhd_apsta.bin \
+    hardware/fxi/cottoncandy/wlan/$(BCM_FW_SRC_FILE_P2P):system/vendor/firmware/fw_bcmdhd_p2p.bin
 ########################
